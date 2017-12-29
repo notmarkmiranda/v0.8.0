@@ -1,24 +1,5 @@
-# README
+# PokerRank v0.8.0
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+[![Waffle.io - Columns and their card count](https://badge.waffle.io/notmarkmiranda/v0.8.0.svg?columns=all)](https://waffle.io/notmarkmiranda/v0.8.0)
+[![Coverage Status](https://coveralls.io/repos/github/notmarkmiranda/v0.8.0/badge.svg?branch=master)](https://coveralls.io/github/notmarkmiranda/v0.8.0?branch=master)
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
