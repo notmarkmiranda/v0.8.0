@@ -1,0 +1,29 @@
+<div class="row justify-content-md-center profile-form">
+  <div class="col-md-4">
+    <div class="card">
+      <div class="card-header">
+        <h3 class="mb-0"><%= button_text %></h3>
+      </div>
+      <div class="card-body">
+        <%= form_for @club do |f| %>
+          <div class="form-group">
+            <%= f.label :name, 'Name' %>
+            <%= f.text_field :name, class: 'form-control' %>
+          </div>
+          <div class="form-group">
+            <%= f.label :privated, 'Private Club?' %>
+            <div class="form-check">
+              <%= f.radio_button :privated, '1', checked: @club.privated? %>
+              <%= f.label :privated_no, 'Yes' %>
+            </div>
+            <div class="form-check">
+              <%= f.radio_button :privated, '0', checked: !@club.privated? %>
+              <%= f.label :privated_no, 'No' %>
+            </div>
+          </div>
+          <%= f.submit button_text, class: 'btn btn-primary btn-lg float-right' %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
