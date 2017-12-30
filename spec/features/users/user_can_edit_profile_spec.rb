@@ -4,7 +4,7 @@ describe 'User can edit profile', type: :feature do
   let(:user) { create(:user, first_name: 'John') }
 
   before do
-    stub_current_user(user)
+    stub_current_(user)
     visit dashboard_path
     click_link 'Edit Profile'
   end

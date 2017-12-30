@@ -1,4 +1,7 @@
 class UsersController < ApplicationController
+  before_action :redirect_logged_in_user, only: [:new, :create]
+  before_action :require_user, only: [:show, :edit, :update]
+
   def show
     @user = current_user
   end
