@@ -2,7 +2,17 @@ class User < ApplicationRecord
   has_secure_password
   has_secure_token
 
-  has_many :clubs
+  has_many :created_clubs, class_name: 'Club', foreign_key: :user_id
+  has_many :user_club_roles
+  has_many :clubs, through: :user_club_roles do
+    def member
+      where('user_club_roles.role = ?', 0)
+    end
+
+    def admin
+      where('user_club_roles.role = ?', 1)
+    end
+  end
 
   validates :email, presence: true, uniqueness: true
   validates :first_name, presence: true

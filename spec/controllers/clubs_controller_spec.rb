@@ -4,6 +4,10 @@ describe ClubsController, type: :controller do
   let(:club)  { create(:club) }
   let(:admin) { club.creator }
   let(:user)  { create(:user) }
+  let(:member) do
+    club.grant_membership(user)
+    user
+  end
 
   context 'GET#show' do
     it 'renders the show template' do
@@ -55,14 +59,23 @@ describe ClubsController, type: :controller do
       expect(response).to render_template :edit
     end
 
-    xit 'redirects to dashboard path - non-admin user' do
+    it 'redirects to dashboard path - non-admin user' do
       get :edit, session: { user_id: user.id }, params: { slug: club.slug }
 
       expect(response).to redirect_to dashboard_path
     end
 
-    it 'redirects to dashboard path - non-admin member'
-    it 'redirects to sign in path - visitor'
+    it 'redirects to dashboard path - non-admin member' do
+      get :edit, session: { user_id: member.id }, params: { slug: club.slug }
+
+      expect(response).to redirect_to dashboard_path
+    end
+
+    it 'redirects to sign in path - visitor' do
+      get :edit, params: { slug: club.slug }
+
+      expect(response).to redirect_to sign_in_path
+    end
   end
 
   context 'PATCH#update' do
@@ -77,8 +90,23 @@ describe ClubsController, type: :controller do
 
       expect(response).to render_template :edit
     end
-    it 'redirects to dashboard path - non-admin user'
-    it 'redirects to dashboard path - non-admin member'
-    it 'redirects to sign in path - visitor'
+
+    it 'redirects to dashboard path - non-admin user' do
+      patch :update, session: { user_id: user.id }, params: { slug: club.slug, club: { name: 'newer name' } }
+
+      expect(response).to redirect_to dashboard_path
+    end
+
+    it 'redirects to dashboard path - non-admin member' do
+      patch :update, session: { user_id: member.id }, params: { slug: club.slug, club: { name: 'newer name' } }
+
+      expect(response).to redirect_to dashboard_path
+    end
+
+    it 'redirects to sign in path - visitor' do
+      patch :update, params: { slug: club.slug, club: { name: 'newer name' } }
+
+      expect(response).to redirect_to sign_in_path
+    end
   end
 end
