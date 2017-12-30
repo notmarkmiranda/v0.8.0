@@ -2,3 +2,11 @@
 <%= @user.full_name %>
 
 <%= link_to 'Edit Profile', edit_profile_path %>
+<%= link_to 'Create New Club', new_club_path %>
+
+<% @clubs.each do |club| %>
+  <li>
+    <%= club.name %> - <%= link_to "Edit #{club.name}", edit_club_path(club) %>
+  </li>
+
+<% end %>
