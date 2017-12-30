@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171230222530) do
+ActiveRecord::Schema.define(version: 20171230225609) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,6 +22,16 @@ ActiveRecord::Schema.define(version: 20171230222530) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_clubs_on_user_id"
+  end
+
+  create_table "leagues", force: :cascade do |t|
+    t.string "name"
+    t.string "slug"
+    t.bigint "club_id"
+    t.boolean "privated", default: true
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["club_id"], name: "index_leagues_on_club_id"
   end
 
   create_table "user_club_roles", force: :cascade do |t|
@@ -47,6 +57,7 @@ ActiveRecord::Schema.define(version: 20171230222530) do
   end
 
   add_foreign_key "clubs", "users"
+  add_foreign_key "leagues", "clubs"
   add_foreign_key "user_club_roles", "clubs"
   add_foreign_key "user_club_roles", "users"
 end
