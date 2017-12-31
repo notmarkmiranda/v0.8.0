@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171230225609) do
+ActiveRecord::Schema.define(version: 20171231045624) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -44,6 +44,14 @@ ActiveRecord::Schema.define(version: 20171230225609) do
     t.index ["user_id"], name: "index_user_club_roles_on_user_id"
   end
 
+  create_table "user_league_roles", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "league_id"
+    t.integer "role"
+    t.index ["league_id"], name: "index_user_league_roles_on_league_id"
+    t.index ["user_id"], name: "index_user_league_roles_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email"
     t.string "password_digest"
@@ -60,4 +68,6 @@ ActiveRecord::Schema.define(version: 20171230225609) do
   add_foreign_key "leagues", "clubs"
   add_foreign_key "user_club_roles", "clubs"
   add_foreign_key "user_club_roles", "users"
+  add_foreign_key "user_league_roles", "leagues"
+  add_foreign_key "user_league_roles", "users"
 end
