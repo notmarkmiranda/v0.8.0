@@ -1,4 +1,4 @@
-module ClubHelper
+module ControllerHelper
   def club
     @club ||= Club.find_by(slug: club_param)
   end
