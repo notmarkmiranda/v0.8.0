@@ -13,6 +13,16 @@ class User < ApplicationRecord
       where('user_club_roles.role = ?', 1)
     end
   end
+  has_many :user_league_roles
+  has_many :leagues, through: :user_league_roles do
+    def member
+      where('user_league_roles.role = ?', 0)
+    end
+
+    def admin
+      where('user_league_roles.role = ?', 1)
+    end
+  end
 
   validates :email, presence: true, uniqueness: true
   validates :first_name, presence: true

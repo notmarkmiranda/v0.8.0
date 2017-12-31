@@ -1,8 +1,8 @@
 class ClubsController < ApplicationController
-  include ClubHelper
+  include ControllerHelper
 
   before_action :require_user, only: [:new, :create]
-  before_action :verify_admin_for_club, only: [:edit, :update]
+  before_action :reject_access, only: [:edit, :update]
 
   def show
     @club = Club.find_by slug: params[:slug]
