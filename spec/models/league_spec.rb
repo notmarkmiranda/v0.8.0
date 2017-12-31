@@ -48,6 +48,7 @@ describe League, type: :model do
     it { should validate_presence_of :slug }
     it { should validate_presence_of :club_id }
   end
+
   context 'methods' do
     context '#grant_adminship' do
       it 'adds a user as an admin' do
