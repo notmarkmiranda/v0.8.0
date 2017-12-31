@@ -8,7 +8,7 @@ FactoryBot.define do
       privated true
     end
 
-    trait :not_private do
+    trait :public do
       privated false
     end
   end
