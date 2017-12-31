@@ -19,6 +19,10 @@ class Club < ApplicationRecord
   after_create :create_admin_ucr
   before_validation :set_slug
 
+  def admin?(user)
+    user_admins.include?(user)
+  end
+
   def grant_adminship(user)
     add_person(user, 1)
   end
@@ -27,8 +31,16 @@ class Club < ApplicationRecord
     add_person(user, 0)
   end
 
+  def not_admin?(user)
+    !admin?(user)
+  end
+
   def to_param
     self.slug if slug
+  end
+
+  def user_admins
+    users.admins
   end
 
   private

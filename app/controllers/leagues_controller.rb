@@ -8,6 +8,9 @@ class LeaguesController < ApplicationController
   private
 
   def access_to_private_league
-    reject_access unless !league.privated? || league.users.include?(current_user)
+    if league.privated?
+      return redirect_to sign_in_path if current_user.nil?
+      redirect_to dashboard_path if league.is_stranger?(current_user)
+    end
   end
 end

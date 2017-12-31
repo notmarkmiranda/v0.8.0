@@ -8,15 +8,16 @@ module ControllerHelper
   end
 
   def reject_access
-    return redirect_to sign_in_path if current_user.nil?
-    if controller_name == 'clubs'
-      redirect_to dashboard_path unless club.users.admins.include?(current_user)
-    elsif controller_name == 'leagues'
-      redirect_to dashboard_path unless league.users.admins.include?(current_user)
-    end
+    return go_to_sign_in_path if current_user.nil?
+    return redirect_to dashboard_path if controller_name == 'clubs' && club.not_admin?(current_user)
+    # return redirect_to dashboard_path if controller_name == 'leagues' && league.admin?(current_user)
   end
 
   private
+
+  def go_to_sign_in_path
+    redirect_to sign_in_path
+  end
 
   def club_param
     controller_name == 'clubs' ? params[:slug] : params[:club_slug]

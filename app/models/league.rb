@@ -15,12 +15,28 @@ class League < ApplicationRecord
   validates :slug, presence: true
   validates :club_id, presence: true
 
+  def admin?(user)
+    user_admins.include?(user)
+  end
+
   def grant_adminship(user)
     add_person(user, 1)
   end
 
   def grant_membership(user)
     add_person(user, 0)
+  end
+
+  def has_person?(user)
+    users.include?(user)
+  end
+
+  def is_stranger?(user)
+    !has_person?(user)
+  end
+
+  def not_admin?(user)
+    !admin?(user)
   end
 
   def user_admins
