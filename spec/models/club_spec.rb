@@ -13,8 +13,8 @@ describe Club, type: :model do
     it { should belong_to :creator }
     it { should have_many :user_club_roles }
     it { should have_many :users }
+    it { should have_many :leagues }
     context '#users.members' do
-
       it 'returns members' do
         member
         expect(club.users.members).to match_array([member])
